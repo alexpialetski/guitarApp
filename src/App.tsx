@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ThemeProvider } from "@mui/material";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { theme } from "constants/theme";
+import { Dashboard } from "components/Dashboard";
+import { Constructor } from "pages/Constructor";
+import { Lessons } from "pages/Lessons";
+import { Home } from "pages/Home";
 
-export default App;
+export const App: React.FC = () => (
+  <ThemeProvider theme={theme}>
+    <BrowserRouter basename="/guitarapp">
+      <Dashboard>
+        <Switch>
+          <Route exact path="/constructor">
+            <Constructor />
+          </Route>
+          <Route exact path="/lessons">
+            <Lessons />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Dashboard>
+    </BrowserRouter>
+  </ThemeProvider>
+);
