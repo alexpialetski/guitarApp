@@ -1,18 +1,22 @@
 import React, { useCallback } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import ClassIcon from "@mui/icons-material/Class";
 import ConstructionIcon from "@mui/icons-material/Construction";
-import { useHistory } from "react-router-dom";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 
-const LINKS: Array<{ path: string; text: string; Icon: React.ReactNode }> = [
+export const LINKS: Array<{
+  path: string;
+  text: string;
+  Icon: React.ReactNode;
+}> = [
   {
-    path: "/",
-    text: "Home",
-    Icon: <DashboardIcon />,
+    path: "/games",
+    text: "Games",
+    Icon: <SportsEsportsIcon />,
   },
   {
     path: "/constructor",
@@ -24,6 +28,7 @@ const LINKS: Array<{ path: string; text: string; Icon: React.ReactNode }> = [
 
 export const SideMenuListItems: React.FC = () => {
   const history = useHistory();
+  const location = useLocation();
 
   const onButtonClick = useCallback(
     (path: string) => () => {
@@ -31,14 +36,18 @@ export const SideMenuListItems: React.FC = () => {
     },
     [history]
   );
+  const isLinkActive = (path: string) => location.pathname.includes(path);
 
   return (
     <List>
       {LINKS.map(({ Icon, text, path }) => (
-        <ListItem button onClick={onButtonClick(path)}>
+        <ListItemButton
+          onClick={onButtonClick(path)}
+          selected={isLinkActive(path)}
+        >
           <ListItemIcon>{Icon}</ListItemIcon>
           <ListItemText primary={text} />
-        </ListItem>
+        </ListItemButton>
       ))}
     </List>
   );

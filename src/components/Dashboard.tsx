@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -13,7 +14,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Copyright } from "./Copyright";
 import { AppBar } from "./AppBar";
 import { Drawer } from "./Drawer";
-import { SideMenuListItems } from "./SideMenuListItems";
+import { SideMenuListItems, LINKS } from "./SideMenuListItems";
 
 const drawerWidth = 240;
 
@@ -22,10 +23,14 @@ const mdTheme = createTheme();
 export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [open, setOpen] = React.useState(true);
+  const location = useLocation();
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const currentPageName = LINKS.find((link) =>
+    location.pathname.includes(link.path)
+  )?.text;
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -56,7 +61,7 @@ export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {currentPageName}
             </Typography>
           </Toolbar>
         </AppBar>
