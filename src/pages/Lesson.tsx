@@ -32,6 +32,7 @@ const CarouselContainer = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   overflowX: "hidden",
+  maxWidth: "100%",
   borderRadius: theme.spacing(2),
 }));
 
@@ -94,7 +95,7 @@ export const Lesson: React.FC = () => {
     let subscription: Subscription;
     let timerSubscription: Subscription;
 
-    if (lesson && start) {
+    if (lesson && start && !Number.isNaN(intervalTime)) {
       subscription = pipeWithRandomChords(
         interval(intervalTime * 1000),
         lesson
