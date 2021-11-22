@@ -10,21 +10,48 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { styled, useTheme } from "@mui/material/styles";
 
 import { Copyright } from "./Copyright";
 import { AppBar } from "./AppBar";
 import { Drawer } from "./Drawer";
+import { Backdrop } from "./Backdrop";
 import { SideMenuListItems, LINKS } from "./SideMenuListItems";
 
 const drawerWidth = 240;
 
 const mdTheme = createTheme();
 
+const Main = styled("main")(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[900],
+  flexGrow: 1,
+  height: "100vh",
+  overflow: "auto",
+  display: "flex",
+  flexDirection: "column",
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(7),
+    width: `calc(100% - ${theme.spacing(7)}px)`,
+  },
+}));
+
+const MobileBackdrop = styled(Backdrop)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
+
 export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const location = useLocation();
-  const [open, setOpen] = useState(true);
+  const theme = useTheme();
+  const [open, setOpen] = useState(
+    window.innerWidth > theme.breakpoints.values.md
+  );
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -81,26 +108,14 @@ export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
           <Divider />
           <SideMenuListItems />
         </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        {open && <MobileBackdrop onClick={toggleDrawer} />}
+        <Main>
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flexGrow: 1 }}>
             {children}
           </Container>
           <Copyright sx={{ pt: 4 }} />
-        </Box>
+        </Main>
       </Box>
     </ThemeProvider>
   );

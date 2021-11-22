@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { LESSONS_IMAGES, LESSON_LEVEL_NAME } from "constants/lesson.constants";
 import { LessonConfig } from "types/lesson";
 
-export const LessonCard: React.FC<LessonConfig> = ({
+export const LessonCard: React.FC<Omit<LessonConfig, "config">> = ({
   level,
   title,
   description,
@@ -25,7 +25,7 @@ export const LessonCard: React.FC<LessonConfig> = ({
       </Typography>
       <Typography variant="body2" sx={{ mb: 2, display: "inline-block" }}>
         Level:
-      </Typography>
+      </Typography>{" "}
       <Typography variant="body2" sx={{ mb: 2, display: "inline-block" }}>
         {LESSON_LEVEL_NAME[level]}
       </Typography>

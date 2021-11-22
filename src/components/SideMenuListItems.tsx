@@ -18,12 +18,12 @@ export const LINKS: Array<{
     text: "Games",
     Icon: <SportsEsportsIcon />,
   },
+  { path: "/lessons", text: "Lessons", Icon: <ClassIcon /> },
   {
     path: "/constructor",
     text: "Constructor",
     Icon: <ConstructionIcon />,
   },
-  { path: "/lessons", text: "Lessons", Icon: <ClassIcon /> },
 ];
 
 export const SideMenuListItems: React.FC = () => {
@@ -42,6 +42,7 @@ export const SideMenuListItems: React.FC = () => {
     <List>
       {LINKS.map(({ Icon, text, path }) => (
         <ListItemButton
+          key={path}
           onClick={onButtonClick(path)}
           selected={isLinkActive(path)}
         >

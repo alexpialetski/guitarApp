@@ -7,8 +7,10 @@ export type DrawerProps = MuiDrawerProps & {
 };
 
 export const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "drawerWidth",
 })<DrawerProps>(({ theme, open, drawerWidth }) => ({
+  zIndex: theme.zIndex.drawer,
+
   "& .MuiDrawer-paper": {
     position: "relative",
     whiteSpace: "nowrap",
@@ -17,6 +19,11 @@ export const Drawer = styled(MuiDrawer, {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down("sm")]: {
+      position: "absolute",
+      height: "100%",
+      zIndex: theme.zIndex.appBar,
+    },
     boxSizing: "border-box",
     ...(!open && {
       overflowX: "hidden",

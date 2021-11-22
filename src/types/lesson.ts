@@ -8,7 +8,7 @@ export type LessonLevel =
   | "expert";
 
 export type LessonConfig = {
-  config: ChordRandomizerConfig;
+  configurations: [ChordRandomizerConfig, ...ChordRandomizerConfig[]];
   title: string;
   description: string;
   level: LessonLevel;
