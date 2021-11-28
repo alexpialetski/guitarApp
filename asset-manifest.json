@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/guitarapp/static/js/main.b00f04ac.chunk.js",
-    "main.js.map": "/guitarapp/static/js/main.b00f04ac.chunk.js.map",
+    "main.js": "/guitarapp/static/js/main.c9b9eca1.chunk.js",
+    "main.js.map": "/guitarapp/static/js/main.c9b9eca1.chunk.js.map",
     "runtime-main.js": "/guitarapp/static/js/runtime-main.ad656449.js",
     "runtime-main.js.map": "/guitarapp/static/js/runtime-main.ad656449.js.map",
-    "static/js/2.2be0db38.chunk.js": "/guitarapp/static/js/2.2be0db38.chunk.js",
-    "static/js/2.2be0db38.chunk.js.map": "/guitarapp/static/js/2.2be0db38.chunk.js.map",
+    "static/js/2.5002c48c.chunk.js": "/guitarapp/static/js/2.5002c48c.chunk.js",
+    "static/js/2.5002c48c.chunk.js.map": "/guitarapp/static/js/2.5002c48c.chunk.js.map",
     "index.html": "/guitarapp/index.html",
     "service-worker.js": "/guitarapp/service-worker.js",
     "service-worker.js.map": "/guitarapp/service-worker.js.map",
-    "static/js/2.2be0db38.chunk.js.LICENSE.txt": "/guitarapp/static/js/2.2be0db38.chunk.js.LICENSE.txt"
+    "static/js/2.5002c48c.chunk.js.LICENSE.txt": "/guitarapp/static/js/2.5002c48c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ad656449.js",
-    "static/js/2.2be0db38.chunk.js",
-    "static/js/main.b00f04ac.chunk.js"
+    "static/js/2.5002c48c.chunk.js",
+    "static/js/main.c9b9eca1.chunk.js"
   ]
 }
