@@ -1,7 +1,8 @@
-import { Note, Scale, ChordModification } from "types/notes";
+import { Note, Scale, ChordModification, Form } from "types/notes";
 
 export function buildChord(
   note: Note,
+  form: Form,
   scale: Scale,
   modification: ChordModification
 ): string {
@@ -26,6 +27,14 @@ export function buildChord(
     case "sept":
       result += "7";
       break;
+  }
+
+  // form
+  switch (form) {
+    case "none":
+      break;
+    default:
+      result += `(${form})`;
   }
 
   return result;

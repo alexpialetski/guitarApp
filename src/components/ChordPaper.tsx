@@ -7,8 +7,8 @@ const Paper = styled(MuiPaper)(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  height: 200,
-  minWidth: 200,
+  height: 170,
+  minWidth: 170,
   boxSizing: "border-box",
 }));
 
@@ -19,6 +19,6 @@ export type ChordPaperProps = {
 
 export const ChordPaper: React.FC<ChordPaperProps> = ({ chord, className }) => (
   <Paper elevation={3} className={className}>
-    <Typography variant="h1">{chord}</Typography>
+    <Typography variant="h2">{chord}</Typography>
   </Paper>
 );

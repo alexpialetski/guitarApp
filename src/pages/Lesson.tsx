@@ -39,14 +39,14 @@ const CarouselContainer = styled("div")(({ theme }) => ({
 export const Lesson: React.FC = () => {
   const [chords, setChords] = useState<UuidChord[]>([]);
   const [start, setStart] = useState(false);
-  const [intervalTime, setintervalTime] = useState(4);
+  const [intervalTime, setintervalTime] = useState(6);
   const [timerValue, setTimerValue] = useState(intervalTime);
   const { id } = useParams<{ id: string }>();
   const lesson = useMemo(() => LESSONS.get(id), [id]);
 
   function pipeWithRandomChords(
     observable$: Observable<number>,
-    chordLesson: LessonConfig
+    chordLesson: LessonConfig<string>
   ) {
     return observable$.pipe(
       map((num) => {

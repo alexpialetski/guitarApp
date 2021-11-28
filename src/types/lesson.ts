@@ -7,9 +7,11 @@ export type LessonLevel =
   | "hard"
   | "expert";
 
-export type LessonConfig = {
+export type LessonConfig<T> = {
   configurations: [ChordRandomizerConfig, ...ChordRandomizerConfig[]];
   title: string;
+  group?: T;
+  groupTitle?: string;
   description: string;
   level: LessonLevel;
 };

@@ -110,11 +110,14 @@ export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
         </Drawer>
         {open && <MobileBackdrop onClick={toggleDrawer} />}
         <Main>
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flexGrow: 1 }}>
+          <Toolbar sx={{ flex: "0 1 auto" }} />
+          <Container
+            maxWidth="lg"
+            sx={{ mt: 4, mb: 4, flex: "1 1 auto", overflow: "auto" }}
+          >
             {children}
           </Container>
-          <Copyright sx={{ pt: 4 }} />
+          <Copyright />
         </Main>
       </Box>
     </ThemeProvider>

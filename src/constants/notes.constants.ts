@@ -1,4 +1,4 @@
-import { Note, Scale, ChordModification } from "types/notes";
+import { Note, Scale, ChordModification, Form } from "types/notes";
 
 export const NUMBERED_MAP_OF_NOTES = new Map<number, Note>([
   [0, "C"],
@@ -8,6 +8,14 @@ export const NUMBERED_MAP_OF_NOTES = new Map<number, Note>([
   [4, "G"],
   [5, "A"],
   [6, "B"],
+]);
+
+export const NUMBERED_MAP_OF_FORMS = new Map<number, Form>([
+  [0, "C"],
+  [1, "D"],
+  [2, "E"],
+  [3, "G"],
+  [4, "A"],
 ]);
 
 export const NUMBERED_MAP_OF_SCALES = new Map<number, Scale>([

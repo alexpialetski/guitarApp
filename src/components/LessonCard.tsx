@@ -7,11 +7,11 @@ import Typography from "@mui/material/Typography";
 import { LESSONS_IMAGES, LESSON_LEVEL_NAME } from "constants/lesson.constants";
 import { LessonConfig } from "types/lesson";
 
-export const LessonCard: React.FC<Omit<LessonConfig, "config">> = ({
+export const LessonCard = <TGroups,>({
   level,
   title,
   description,
-}) => (
+}: Omit<LessonConfig<TGroups>, "config">): JSX.Element => (
   <Card sx={{ maxWidth: 345 }}>
     <CardMedia
       component="img"
