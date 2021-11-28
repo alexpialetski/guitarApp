@@ -65,6 +65,7 @@ export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
         <CssBaseline />
         <AppBar position="absolute" open={open} drawerWidth={drawerWidth}>
           <Toolbar
+            variant="dense"
             sx={{
               pr: "24px", // keep right padding when drawer closed
             }}
@@ -94,6 +95,7 @@ export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
         </AppBar>
         <Drawer variant="permanent" open={open} drawerWidth={drawerWidth}>
           <Toolbar
+            variant="dense"
             sx={{
               display: "flex",
               alignItems: "center",
@@ -111,10 +113,7 @@ export const Dashboard: React.FC<{ children: React.ReactNode }> = ({
         {open && <MobileBackdrop onClick={toggleDrawer} />}
         <Main>
           <Toolbar sx={{ flex: "0 1 auto" }} />
-          <Container
-            maxWidth="lg"
-            sx={{ mt: 4, mb: 4, flex: "1 1 auto", overflow: "auto" }}
-          >
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flexGrow: 1 }}>
             {children}
           </Container>
           <Copyright />
