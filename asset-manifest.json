@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/guitarapp/static/js/main.8e353afd.chunk.js",
-    "main.js.map": "/guitarapp/static/js/main.8e353afd.chunk.js.map",
+    "main.js": "/guitarapp/static/js/main.65c76816.chunk.js",
+    "main.js.map": "/guitarapp/static/js/main.65c76816.chunk.js.map",
     "runtime-main.js": "/guitarapp/static/js/runtime-main.ad656449.js",
     "runtime-main.js.map": "/guitarapp/static/js/runtime-main.ad656449.js.map",
     "static/js/2.9d789bea.chunk.js": "/guitarapp/static/js/2.9d789bea.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.ad656449.js",
     "static/js/2.9d789bea.chunk.js",
-    "static/js/main.8e353afd.chunk.js"
+    "static/js/main.65c76816.chunk.js"
   ]
 }
