@@ -36,8 +36,9 @@ const MetronomeIcon = () => {
 
 const NotesIndicator = ({ note }: { note: number }) => {
   const icons = [1, 2, 3, 4].map((cur) => {
+    const iconColor = cur === 1 ? "secondary" : "primary";
     const IconComponent = cur === note ? CircleIcon : CircleOutlinedIcon;
-    return <IconComponent key={cur} fontSize="large" color="primary" />;
+    return <IconComponent key={cur} fontSize="large" color={iconColor} />;
   });
 
   return <Box>{icons}</Box>;
