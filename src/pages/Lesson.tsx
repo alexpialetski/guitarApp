@@ -4,12 +4,13 @@ import { filter, map, scan } from "rxjs/operators";
 import { useParams, Redirect } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { styled } from "@mui/material/styles";
+
 import { ChordRandomizer } from "services/ChordRandomizer";
 import { ChordCarousel } from "components/ChordCarousel";
 import { LESSONS } from "constants/lessons";
 import { LessonConfig } from "types";
-import { MetronomeComp } from "components/MetronomeComp";
-import { useMetronome } from "services/Metronome/useMetronome";
+import { MetronomeSlider } from "components/MetronomeSlider";
+import { useMetronome } from "hooks/useMetronome";
 
 const NUMBER_OF_INITIAL_CHORDS = 3;
 
@@ -51,15 +52,15 @@ export const Lesson: React.FC = () => {
   const [chords, setChords] = useState<UuidChord[]>([]);
   const { id } = useParams<{ id: string }>();
   const lesson = useMemo(() => LESSONS.get(id), [id]);
-  const { metronome$, ...restMetronomeProps } = useMetronome();
-  const isLessonActive = restMetronomeProps.enabled;
+  const { metronome$, ...metronomeProps } = useMetronome();
+  const isLessonActive = metronomeProps.enabled;
 
   useEffect(() => {
     let subscription: Subscription;
 
     if (lesson) {
       subscription = concat(
-        of(""),
+        of(""), // hidden left card on start
         pipeWithRandomChords(
           range(
             Math.max(NUMBER_OF_INITIAL_CHORDS, lesson.configurations.length)
@@ -79,12 +80,10 @@ export const Lesson: React.FC = () => {
 
   useEffect(() => {
     let subscription: Subscription;
-    let timerSubscription: Subscription;
 
     if (lesson && isLessonActive) {
-      const firstBeatTick$ = metronome$.pipe(
-        filter((cur: number) => cur === 1)
-      );
+      const firstBeatTick$ = metronome$.pipe(filter((cur) => !cur));
+
       subscription = pipeWithRandomChords(firstBeatTick$, lesson).subscribe(
         (chord) =>
           setChords((prev) => [...prev.slice(1), { id: uuidv4(), chord }])
@@ -93,7 +92,6 @@ export const Lesson: React.FC = () => {
 
     return () => {
       subscription?.unsubscribe();
-      timerSubscription?.unsubscribe();
     };
   }, [lesson, metronome$, isLessonActive]);
 
@@ -103,7 +101,7 @@ export const Lesson: React.FC = () => {
 
   return (
     <Container>
-      <MetronomeComp {...restMetronomeProps} />
+      <MetronomeSlider {...metronomeProps} />
       <CarouselContainer>
         <ChordCarousel chords={chords} />
       </CarouselContainer>

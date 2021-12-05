@@ -6,37 +6,29 @@ declare global {
   }
 }
 
-export class Metronome extends Subject<number> {
+// https://github.com/grantjames/metronome
+export class MetronomeObservable extends Subject<number> {
   private audioContext: AudioContext;
 
-  private notesInQueue: Array<{ note: number; time: number }>;
-
-  private currentQuarterNote: number;
+  private currentQuarterNote = 0;
 
   private tempo: number;
 
-  private lookahead: number;
+  private lookahead = 25; // How frequently to call scheduling function (in milliseconds)
 
-  private scheduleAheadTime: number;
+  private scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
 
-  private nextNoteTime: number;
+  private nextNoteTime = 0.0; // when the next note is due
 
-  private intervalID: NodeJS.Timeout | null;
+  private intervalID: NodeJS.Timeout | null = null;
 
   private soundOn: boolean;
 
-  public isRunning: boolean;
+  public isRunning = false;
 
   constructor(tempo: number, soundOn: boolean) {
     super();
-    this.notesInQueue = []; // notes that have been put into the web audio and may or may not have been played yet {note, time}
-    this.currentQuarterNote = 0;
     this.tempo = tempo;
-    this.lookahead = 25; // How frequently to call scheduling function (in milliseconds)
-    this.scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
-    this.nextNoteTime = 0.0; // when the next note is due
-    this.isRunning = false;
-    this.intervalID = null;
     this.soundOn = soundOn;
     this.audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
@@ -48,21 +40,19 @@ export class Metronome extends Subject<number> {
     this.nextNoteTime += secondsPerBeat; // Add beat length to last beat time
 
     this.currentQuarterNote++; // Advance the beat number, wrap to zero
-    if (this.currentQuarterNote === 5) {
-      this.currentQuarterNote = 1;
+    if (this.currentQuarterNote === 4) {
+      this.currentQuarterNote = 0;
     }
   }
 
   private scheduleNote(beatNumber: number, time: number) {
-    // push the note on the queue, even if we're not playing.
-    this.notesInQueue.push({ note: beatNumber, time: time });
-
     // create an oscillator
     const osc = this.audioContext.createOscillator();
     if (this.soundOn) {
       const envelope = this.audioContext.createGain();
 
-      osc.frequency.value = beatNumber % 4 == 0 ? 1000 : 800;
+      osc.frequency.value = beatNumber === 3 ? 1000 : 800;
+
       envelope.gain.value = 1;
       envelope.gain.exponentialRampToValueAtTime(1, time + 0.001);
       envelope.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
@@ -87,11 +77,7 @@ export class Metronome extends Subject<number> {
     }
   }
 
-  public start(tempo?: number): void {
-    if (tempo) {
-      this.tempo = tempo;
-    }
-
+  public start(): void {
     if (this.isRunning) return;
 
     this.isRunning = true;
@@ -104,9 +90,9 @@ export class Metronome extends Subject<number> {
 
   public stop(): void {
     this.isRunning = false;
+    this.currentQuarterNote = 0;
 
     if (this.intervalID) {
-      this.notesInQueue = [];
       clearInterval(this.intervalID);
     }
   }
@@ -117,6 +103,10 @@ export class Metronome extends Subject<number> {
 
   public toggleSound(): void {
     this.soundOn = !this.soundOn;
+  }
+
+  public getCurrentQuarterNote(): number {
+    return this.currentQuarterNote;
   }
 
   public startStop(): void {
