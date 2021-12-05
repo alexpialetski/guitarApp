@@ -10,7 +10,9 @@ export class LSUserConfigProvider implements UserConfigProvider {
   public getUserTempo = (): number => {
     const parsedNumber = Number(localStorage.getItem(USER_TEMPO_KEY));
 
-    return Number.isNaN(parsedNumber) ? parsedNumber : DEFAULT_TEMPO;
+    return !parsedNumber || Number.isNaN(parsedNumber)
+      ? DEFAULT_TEMPO
+      : parsedNumber;
   };
 
   public setUserTempo = (tempo: number): void => {
@@ -21,6 +23,7 @@ export class LSUserConfigProvider implements UserConfigProvider {
     localStorage.setItem(USER_SOUND_ON_KEY, String(soundOn));
 
   public getUserSoundOn = (): boolean =>
-    localStorage.getItem(USER_SOUND_ON_KEY) === String(true) ??
-    DEFAULT_SOUND_ON;
+    localStorage.getItem(USER_SOUND_ON_KEY) == null
+      ? DEFAULT_SOUND_ON
+      : localStorage.getItem(USER_SOUND_ON_KEY) === String(true);
 }

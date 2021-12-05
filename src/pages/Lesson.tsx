@@ -82,7 +82,10 @@ export const Lesson: React.FC = () => {
     let subscription: Subscription;
 
     if (lesson && isLessonActive) {
-      const firstBeatTick$ = metronome$.pipe(filter((cur) => !cur));
+      const firstBeatTick$ = metronome$.pipe(
+        filter((cur) => !cur),
+        scan<number, number>((a) => ++a, 0)
+      );
 
       subscription = pipeWithRandomChords(firstBeatTick$, lesson).subscribe(
         (chord) =>
