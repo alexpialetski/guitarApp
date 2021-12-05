@@ -53,7 +53,6 @@ export const LessonDashboard = <TGroups extends string>({
   const [expanded, setExpanded] = React.useState<TGroups | false>(false);
 
   const groupedLessons = useMemo(() => groupLessons(lessons), [lessons]);
-  console.log(groupedLessons);
 
   const handleChange =
     (panel: TGroups) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -86,6 +85,7 @@ export const LessonDashboard = <TGroups extends string>({
 
           return (
             <Accordion
+              key={group}
               expanded={expanded === group}
               onChange={handleChange(group)}
               sx={{ mt: 2 }}

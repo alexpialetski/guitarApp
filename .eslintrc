@@ -32,6 +32,8 @@
       {
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "@typescript-eslint/no-array-constructor": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }
