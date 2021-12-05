@@ -11,10 +11,11 @@ export const QuarterIndicator: React.FC<QuarterIndicatorProps> = ({
   currentQuarter,
 }) => {
   const icons = Array.from({ length: 4 }, (_, cur) => {
+    const iconColor = cur === 0 ? "secondary" : "primary";
     const IconComponent =
       cur === currentQuarter ? CircleIcon : CircleOutlinedIcon;
 
-    return <IconComponent key={cur} fontSize="large" color="primary" />;
+    return <IconComponent key={cur} fontSize="large" color={iconColor} />;
   });
 
   return <Box display="flex">{icons}</Box>;
